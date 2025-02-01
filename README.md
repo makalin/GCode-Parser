@@ -15,8 +15,8 @@ A lightweight Python module for parsing G-code files, commonly used in CNC machi
 No external dependencies are required. Just clone the repository and use the script.
 
 ```sh
-git clone <repo_url>
-cd <repo_folder>
+git clone https://github.com/makalin/GCode-Parser.git
+cd GCode-Parser
 ```
 
 ## Usage
