@@ -11,15 +11,29 @@ def parse_gcode(file_path):
         for line in file:
             line = line.strip()
             if line and not line.startswith(";"):  # Ignore comments
+                line = line.split(";")[0] # remove in-line comments
                 parts = line.split()
                 command = parts[0]
                 params = {}
                 for part in parts[1:]:
                     key = part[0]
-                    value = float(part[1:]) if "." in part else int(part[1:])
+                    value = try_read_value(part)
                     params[key] = value
                 commands.append(GCodeCommand(command, params))
     return commands
+
+def try_read_value(part): # not all G commands has values after X, Y, Z or E notation
+    if "." in part:
+        try:
+            return float(part[1:])
+        except:
+            return part[1:]
+    else:
+        try:
+            return int(part[1:])
+        except:
+            return part[1:]
+
 
 def analyze_gcode(commands):
     total_time = 0
